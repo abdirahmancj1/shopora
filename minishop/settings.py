@@ -87,10 +87,10 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'ghfSclYTVLQCFJSzrqWhZZSDRKguoFUm',
-        'HOST': 'postgres.railway.internal',
+        'NAME': 'minishop_db_mf0v',
+        'USER': 'minishop_db_mf0v_user',
+        'PASSWORD': '2agpxKOCYwq45dEfjTRbLZNhMVvqlt3f',
+        'HOST': 'dpg-d7sqifugvqtc739v2a00-a',
         'PORT': '5432',
     }
 }
