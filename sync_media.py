@@ -5,7 +5,7 @@ from django.core.files import File
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'minishop.settings')
 django.setup()
 
-from product.models import Product
+from shop.models import Product
 
 def sync_to_cloudinary():
     print("Starting Cloudinary sync...")

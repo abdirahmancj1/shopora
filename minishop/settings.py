@@ -147,7 +147,7 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': '41KN4uExiwDIjp9P7JmCwrds-9Q',
 }
 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
 # MEDIA_ROOT is not used with Cloudinary, but kept for local development compatibility
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
