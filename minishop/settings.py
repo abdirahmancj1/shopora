@@ -140,7 +140,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Cloudinary Storage Settings
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'CLOUD_NAME': os.environ.get('db8cxpuf3'),
     'API_KEY': os.environ.get('311969589693637'),
     'API_SECRET': os.environ.get('41KN4uExiwDIjp9P7JmCwrds-9Q'),
 }
