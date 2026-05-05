@@ -36,9 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
     'django.contrib.staticfiles',
-     'cloudinary',
     'home',
     'shop',
     'cart',
@@ -47,6 +45,8 @@ INSTALLED_APPS = [
     'payment',
     'django_datatables_view',
     'django.contrib.humanize',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
