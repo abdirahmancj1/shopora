@@ -62,7 +62,7 @@ A scalable and feature-rich E-Commerce platform built using Django and MySQL. In
    ```bash
    python manage.py makemigrations
    python manage.py migrate
-   python manage.py createsuperuser
+   python manage.py create_hp
    python manage.py runserver
 5. **Optional: Seed Fake Data**.
 You can auto-generate sample products and orders for testing.
