@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
     'home',
     'shop',
     'cart',
@@ -135,8 +137,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = []  # We will rely on app-level static folders
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+
+# Cloudinary Storage Settings
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('311969589693637'),
+    'API_SECRET': os.environ.get('41KN4uExiwDIjp9P7JmCwrds-9Q'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_ROOT is not used with Cloudinary, but kept for local development compatibility
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
