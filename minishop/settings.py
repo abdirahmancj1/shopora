@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'gunicorn myproject.wsgi.wsgi.application'
+WSGI_APPLICATION = 'minishop.wsgi.application'
 
 
 # Database
