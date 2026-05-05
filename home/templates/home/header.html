@@ -38,7 +38,7 @@
   id="ftco-navbar"
 >
   <div class="container">
-    <a class="navbar-brand" href="{% url 'home' %}">Minishop</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Shopora</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -72,12 +72,9 @@
             >Catalog</a
           >
           <div class="dropdown-menu" aria-labelledby="dropdown04">
-            <a class="dropdown-item" href="{% url "shop" %}">Shop</a>
-            <a class="dropdown-item" href="#"
-              >Single Product</a
-            >
-            <a class="dropdown-item" href="cart.html">Cart</a>
-            <a class="dropdown-item" href="checkout.html">Checkout</a>
+            <a class="dropdown-item" href="{% url 'shop' %}">Shop</a>
+            <a class="dropdown-item" href="{% url 'cart' %}">Cart</a>
+            <a class="dropdown-item" href="{% url 'checkout' %}">Checkout</a>
           </div>
         </li>
         <li class="nav-item {% if request.path == about_url %}active{% endif %}">

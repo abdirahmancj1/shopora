@@ -6,9 +6,11 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db import transaction
-# Create your views here.
+from dashboard.models import Product
+
 def home(request):
-    return render(request, 'home/index.html')
+    products = Product.objects.all().order_by('-created_at')[:8]
+    return render(request, 'home/index.html', {'products': products})
 
 def about(request):
     return render(request, 'home/pages/about/about.html')
@@ -28,8 +30,8 @@ def login(request):
                 messages.success(request, 'Welcome Back')
                 return redirect('vendor_dashboard')
             else:
-                messages.error(request, 'Invalid Credentials')
-                return redirect('login')
+                # Re-render the form with an error — don't redirect (loses the message)
+                form.add_error(None, 'Invalid username or password.')
     else:
         form = loginForm()
     return render(request, 'home/pages/auth/login.html', {'form': form})
@@ -44,11 +46,10 @@ def register(request):
                 password = form.cleaned_data.get('password1')
                 user = authenticate(username=username, password=password)
                 auth_login(request, user)
-                messages.success(request, 'Welcome Back')
+                messages.success(request, 'Account created! Welcome.')
                 return redirect('vendor_dashboard')
-        else:
-            messages.error(request, 'Invalid Credentials')
-            return redirect('register')
+        # Re-render the form with all Django validation errors visible to the user
+        # (don't redirect — redirect discards form field errors)
     else:
         form = SignUpForm()
-    return render(request, 'home/pages/auth/register.html', {'form': form})
+    return render(request, 'home/pages/auth/register.html', {'form': form})

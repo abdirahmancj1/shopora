@@ -8,9 +8,9 @@ def add_product_to_cart_service(request, product_id):
     if request.user.is_authenticated:
         try:
             with transaction.atomic():
-                product= Product.objects.get(id=product_id)
-                cart_item,created = CartItem.objects.get_or_create(
-                    user=request.user, 
+                product = Product.objects.get(id=product_id)
+                cart_item, created = CartItem.objects.get_or_create(
+                    user=request.user,
                     product=product,
                     defaults={
                         'product_name': product.name,
@@ -18,11 +18,16 @@ def add_product_to_cart_service(request, product_id):
                         'quantity': 1,
                     }
                 )
-                if not created:
-                    if cart_item.quantity <= product.quantity:
+                if created:
+                    # First time adding — check stock
+                    if product.quantity < 1:
+                        cart_item.delete()
+                        return False, 'Product is out of stock'
+                else:
+                    # Already in cart — check before incrementing
+                    if cart_item.quantity < product.quantity:
                         cart_item.quantity += 1
                         cart_item.save()
-                        return True, 'Product Added To Cart'
                     else:
                         return False, 'Product Quantity Exceeded'
         except Product.DoesNotExist:
@@ -30,45 +35,53 @@ def add_product_to_cart_service(request, product_id):
         return True, 'Product Added To Cart'
     else:
         # Get existing cart from session or initialize empty dict if not found
-        cart= request.session.get('cart',{})
-        product_id_str = str(product_id) # Ensure key is a string for consistent session storage
+        cart = request.session.get('cart', {})
+        product_id_str = str(product_id)  # Ensure key is a string for consistent session storage
         if product_id_str in cart:
             get_product = cart.get(product_id_str)
-            # Sometimes users may tamper with session (via browser tools), 
-            # so you should ensure cart item is well-formed before using .
-            # get() on it.
-            if not isinstance(get_product,dict):
+            # Sometimes users may tamper with session (via browser tools),
+            # so you should ensure cart item is well-formed before using .get() on it.
+            if not isinstance(get_product, dict):
                 return False, 'Cart Data Is Corrupted'
             # Safely update quantity and total price
-            quantity = int(get_product.get('quantity'))+1
+            quantity = int(get_product.get('quantity')) + 1
             price = float(get_product.get('price'))
-            total= float(price*quantity)
+            total = float(price * quantity)
             cart[product_id_str]['quantity'] = quantity
             cart[product_id_str]['total'] = total
             # Save updated cart back to session
             request.session['cart'] = cart
-            request.session.modified = True # Mark session as changed for saving
-            return True, 'Quantity is Increased,Product Is Already In Cart'
+            request.session.modified = True  # Mark session as changed for saving
+            return True, 'Quantity Increased — Product Already In Cart'
         else:
             # Product not in cart — fetch from DB
             try:
-                product= Product.objects.get(id=product_id)
+                product = Product.objects.get(id=product_id)
             except Product.DoesNotExist:
                 return False, 'Product Does Not Exist'
+            # Check stock before adding
+            if product.quantity < 1:
+                return False, 'Product is out of stock'
+            # Safely get image URL — guard against products with no image file
+            try:
+                image_url = product.image.url if product.image else ''
+            except ValueError:
+                image_url = ''
             # Add product to cart with initial quantity of 1
-            quantity=1
-            price= float(product.price)
+            quantity = 1
+            price = float(product.price)
             cart[product_id_str] = {
                 'id': product.pk,
                 'name': product.name,
                 'price': price,
                 'quantity': quantity,
-                'total': float(price*quantity),
-                'image': product.image.url
+                'total': float(price * quantity),
+                'image': image_url,
             }
             request.session['cart'] = cart
-    request.session.modified = True  # Ensure Django saves session even if object not reassigned
-    return True, 'Product Added To Cart'
+            request.session.modified = True  # Ensure Django saves session
+            return True, 'Product Added To Cart'
+
 
 
 def get_user_cart(request):
@@ -85,7 +98,7 @@ def get_user_cart(request):
                 'price': item.product_price,
                 'quantity': item.quantity,
                 'total': item_total,
-                'image': item.product.image.url
+                'image': item.product.image.url if item.product.image else ''
             })
     else:
         cart = request.session.get('cart', {})

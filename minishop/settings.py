@@ -84,17 +84,16 @@ WSGI_APPLICATION = 'minishop.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mssql',
         'NAME': 'minishop_db',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'USER': '',
+       'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
     }
 }
 
@@ -142,5 +141,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Redirect to custom login page when @login_required fails
+LOGIN_URL = '/login/'
 # Optional compression
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

@@ -45,7 +45,7 @@ class CheckoutServices:
                 ## Match payment method
                 match payment_method:
                     case 'COD':
-                        return False, 'Cash on Delivery not implemented yet'
+                        return self._cod(request, address_id, account)
                     case 'STRIPE':
                         return self._stripe(request, address_id,account)
                     case 'PAYPAL':
@@ -261,10 +261,74 @@ class CheckoutServices:
             print(f"An error occurred: {str(e)}")
             return False, f"An error occurred: {str(e)}"
 
-
-            
-            
-            
-            
+    def _cod(self, request, address_id, account):
+        """
+        COD payment handling logic
+        Creates Payment, Order and OrderItem
+        Returns: bool, str
+        """
+        try:
+            with transaction.atomic():
+                address = Address.objects.filter(id=address_id).first()
+                if not address:
+                    return False, "Address not found"
                 
-        
+                # Get user cart items
+                from cart.services.cart_services import get_user_cart
+                cart_items, cart_total = get_user_cart(request)
+                
+                if not cart_items:
+                    return False, "Cart is empty"
+                
+                # Calculate total amount (including tax and service charges)
+                total_amount = float(cart_total) + 150 # Tax (50) + Service Charges (100)
+
+                # Update payment_draft to APPROVED
+                address.payment_draft = 'APPROVED'
+                address.save()
+
+                # Create Payment (marked as COD and not paid yet)
+                payment = Payment.objects.create(
+                    transaction_id=f"COD-{uuid.uuid4().hex[:10].upper()}",
+                    amount=total_amount,
+                    is_paid=False,
+                )
+
+                # Get User
+                user = request.user if request.user.is_authenticated else None
+                
+                # Create Order
+                order = Order.objects.create(
+                    user=user,
+                    payment=payment,
+                    address=address,
+                    total_price=total_amount,
+                    status='PENDING',
+                )
+
+                # Create OrderItems
+                for item in cart_items:
+                    try:
+                        product = Product.objects.get(id=item['id'])
+                    except Product.DoesNotExist:
+                        return False, f"Product Does Not Exist. Product ID: {item['id']}"
+                    
+                    OrderItem.objects.create(
+                        order=order,
+                        product=product,
+                        quantity=item['quantity'],
+                        price=item['price'],
+                    )
+                
+                # Clear Cart
+                if request.user.is_authenticated:
+                    from cart.models import CartItem
+                    CartItem.objects.filter(user=request.user).delete()
+                else:
+                    request.session.pop('cart', None)
+                    request.session.modified = True
+
+                return True, f"Order placed successfully! Order ID: {order.order_number}. Payment method: Cash on Delivery."
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            return False, f"An error occurred: {str(e)}"

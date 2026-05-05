@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from dashboard.models import ( Category, Product)
 from django.db.models import Count
 from django.core.paginator import Paginator
@@ -41,7 +41,7 @@ def shop(request):
     return render(request, 'shop/shop.html', context)
 
 def product_detail(request, slug):
-    product= Product.objects.get(slug=slug)
+    product = get_object_or_404(Product, slug=slug)
     context={
         'product':product,
     }
@@ -51,7 +51,7 @@ def category_products(request, slug):
     shop_service = ShopServices()
     success, message, products = shop_service.get_category_products(request, slug)
     if not success:
-        return render(request, 'shop/shop.html', message)
+        return render(request, 'shop/shop.html', {'error': message})
     category = Category.objects.filter(parent__isnull=True).prefetch_related('subcategories').order_by('-id')
     category_data = []
 

@@ -11,9 +11,9 @@
     <div class="nav-item-header">
         Orders Management
     </div>
-    <ul class="nav flex-coluamn">
+    <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name in 'orders_list order_details' %} active{% endif %}" href="{% url "orders_list" %}" role="button" >
+            <a class="nav-link {% if request.resolver_match.url_name in 'orders_list order_details' %} active{% endif %}" href="{% url 'orders_list' %}" role="button" >
                 <i class="fas fa-shopping-cart"></i>
                 <span class="nav-link-text">Orders</span>
             </a>
@@ -212,10 +212,10 @@
     <div class="row g-4 mt-2">
         <!-- Monthly Sale's Chart Section -->
         <div class="col-lg-6 col-md-6">
-            <div class="dashboard-card p-4 font_color">
+            <div class="dashboard-card p-4">
 
                 <!-- Heading -->
-                <div class="mb-3 text-center w-100" style="color: #000; font-weight: 600; font-size: 18px;">
+                <div class="mb-4 text-center w-100 fw-bold fs-5">
                     Monthly Sales
                 </div>
 
@@ -226,10 +226,10 @@
 
         <!-- Recent Orders Datatable -->
         <div class="col-lg-6 col-md-6">
-            <div class="dashboard-card p-4 font_color">
+            <div class="dashboard-card p-4">
 
                 <!-- Heading -->
-                <div class="mb-3 text-center w-100" style="color: #000; font-weight: 600; font-size: 18px;">
+                <div class="mb-4 text-center w-100 fw-bold fs-5">
                     Recent Orders
                 </div>
                 {% if data.recent_orders %}
@@ -276,10 +276,10 @@
         
         <!-- Monthly Sale's Chart Section -->
         <div class="col-lg-6 col-md-6">
-            <div class="dashboard-card p-4 font_color">
+            <div class="dashboard-card p-4">
 
                 <!-- Heading -->
-                <div class="mb-3 text-center w-100" style="color: #000; font-weight: 600; font-size: 18px;">
+                <div class="mb-4 text-center w-100 fw-bold fs-5">
                     Weekly Sales
                 </div>
 
@@ -290,10 +290,10 @@
         
         <!-- Low Stock Products -->
         <div class="col-lg-6 col-md-6">
-            <div class="dashboard-card p-4 font_color">
+            <div class="dashboard-card p-4">
 
                 <!-- Heading -->
-                <div class="mb-3 text-center w-100" style="color: #000; font-weight: 600; font-size: 18px;">
+                <div class="mb-4 text-center w-100 fw-bold fs-5">
                     Low Stock Products
                 </div>
 

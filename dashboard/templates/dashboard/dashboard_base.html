@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% block title %}Dashboard{% endblock %} | MiniShop</title>
+    <title>{% block title %}Dashboard{% endblock %} | Shopora</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -39,9 +40,9 @@
                 </span>
             </div>
             <!-- Logo -->
-            <a class="navbar-brand me-auto" href="#">
-                <i class="fas fa-cube logo-icon"></i>
-                <span class="logo-text">Dashboard</span>
+            <a class="navbar-brand me-auto" href="{% url 'home' %}">
+                <i class="fas fa-shopping-bag logo-icon"></i>
+                <span class="logo-text">Shopora</span>
             </a>
             
             <!-- Right navbar items -->
@@ -55,7 +56,11 @@
                 
                 <!-- User Avatar -->
                 <div class="dropdown avatar-container position-relative">
-                    <img src="#" class="profile-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="profile-icon dropdown-toggle d-flex align-items-center justify-content-center bg-primary-light text-primary rounded-circle" 
+                         data-bs-toggle="dropdown" aria-expanded="false" 
+                         style="width: 40px; height: 40px; cursor: pointer; border: 2px solid var(--primary-color);">
+                        <i class="fas fa-user"></i>
+                    </div>
                     <span class="avatar-badge"></span>
                     <ul class="dropdown-menu dropdown-menu-end mt-2" id="profile_menu_dropdown">
                         <li><a class="dropdown-item" href="#">Action</a></li>
@@ -92,9 +97,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}">
-                        <i class="fas fa-home"></i>
-                        <span>Home</span>
-                        <div class="sidebar-tooltip">Home</div>
+                        <i class="fas fa-globe"></i>
+                        <span>View Site</span>
+                        <div class="sidebar-tooltip">View Site</div>
                     </a>
                 </li>
             </ul>

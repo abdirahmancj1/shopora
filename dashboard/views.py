@@ -26,6 +26,7 @@ def is_admin(user):
 def is_vendor(user):
     return not user.is_superuser
 
+@login_required
 def vendor_dashboard(request):
     is_superuser = request.user.is_superuser
     if is_superuser:
@@ -59,7 +60,15 @@ def logout(request):
 @login_required
 @user_passes_test(is_admin)
 def navbar_create(request):
-    data,created = navbar.objects.get_or_create(id=1)
+    data,created = navbar.objects.get_or_create(
+        id=1,
+        defaults={
+            'name': '',
+            'number': 0,
+            'email': '',
+            'description': ''
+        }
+    )
     if request.method == "POST":
         form= navbarForm(request.POST,instance=data)
         if form.is_valid():
@@ -427,13 +436,14 @@ class OrdersListData(BaseDatatableView):
 @user_passes_test(is_admin)
 def order_details(request, pk):
     success, message, data = OrdersServices().orders_details(request, pk)
-    items= data.items.all()
-    count= count = items.values('product').distinct().count()
     if not success:
         messages.error(request, message)
+        return redirect('orders_list')
+    items = data.items.all()
+    count = items.values('product').distinct().count()
     context={
-        'data':data,
-        'total_items':count
+        'data': data,
+        'total_items': count
     }
     return render(request, 'dashboard/admin_pages/orders/details.html', context)
 ### Orders Section End ###

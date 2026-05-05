@@ -95,7 +95,7 @@
           <h3>Cart Totals</h3>
           <p class="d-flex">
             <span>Subtotal</span>
-            <span>$20.60</span>
+            <span>${{ cart_total|floatformat:2 }}</span>
           </p>
           {% comment %} <p class="d-flex">
             <span>Delivery</span>
@@ -104,7 +104,7 @@
           <hr />
           <p class="d-flex total-price">
             <span>Total</span>
-            <span>${{ cart_total }}</span>
+            <span>${{ cart_total|floatformat:2 }}</span>
           </p>
         </div>
         <p class="text-center">

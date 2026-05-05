@@ -3,12 +3,12 @@ from django.contrib import messages
 from .models import (Address,)
 from .forms import AddressForm
 from payment.services.payment_services import (CheckoutServices)
-
+from cart.services.cart_services import get_user_cart
 # Create your views here.
 def checkout(request):
-    cart = request.session.get('cart', {})
+    cart_items, cart_total = get_user_cart(request)
 
-    if not cart:  # Check if cart is empty or None
+    if not cart_items:  # Check if cart is empty
         messages.error(request, 'Cart is empty')
         return redirect('cart')
         
@@ -35,6 +35,8 @@ def checkout(request):
     context={
         'form':form,
         'button': 'Submit',
+        'cart_items': cart_items,
+        'cart_total': cart_total,
     }
     return render(request, 'payment/checkout.html', context)
 
