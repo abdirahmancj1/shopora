@@ -84,18 +84,18 @@ WSGI_APPLICATION = 'minishop.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'minishop_db',
-        'USER': '',
-       'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'minishop_db_mf0v',
+        'USER': 'minishop_db_mf0v_user',
+        'PASSWORD': '2agpxKOCYwq45dEfjTRbLZNhMVvqlt3f',
+        'HOST': 'dpg-d7sqifugvqtc739v2a00-a',
+        'PORT': '5432',
     }
 }
+
+
 
 
 # Password validation
@@ -132,7 +132,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS= [os.path.join(BASE_DIR,'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 MEDIA_URL = '/media/'
