@@ -2,53 +2,74 @@
 {% load static %}
 {% block title %}Home{% endblock %} 
 {% block content %}
-    <!-- Modern Hero Section -->
-    <section class="modern-hero">
+    <!-- Premium Hero Section -->
+    <section class="premium-hero">
+        <div class="hero-bg-text">MINI<br>SHOP</div>
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-center min-vh-80">
                 <div class="col-lg-6">
-                    <div class="hero-content" data-aos="fade-right">
-                        <span class="hero-tag">Summer Collection 2026</span>
-                        <h1 class="hero-title">Shop the<br>Latest Trends</h1>
-                        <p class="hero-desc">Discover our curated selection of premium footwear and accessories designed for the modern lifestyle.</p>
-                        <a href="{% url 'shop' %}" class="btn-modern">Shop Now</a>
+                    <div class="premium-hero-content" data-aos="fade-right" data-aos-duration="1000">
+                        <div class="hero-badge">NEW ARRIVAL 2026</div>
+                        <h1 class="hero-display-title">Elegance in<br>Every Step.</h1>
+                        <p class="hero-subtitle">Discover our exclusive collection of premium footwear, crafted for those who value both style and uncompromising comfort.</p>
+                        <div class="hero-actions">
+                            <a href="{% url 'shop' %}" class="btn-primary-modern">Explore Collection</a>
+                            <a href="#featured" class="btn-link-modern">View Highlights <i class="ion-ios-arrow-round-forward"></i></a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="hero-img-box-static" data-aos="fade-left">
-                        <img src="{% static 'home/images/mens_shoe.png' %}" class="img-fluid" alt="Hero Image" style="filter: drop-shadow(0 30px 60px rgba(0,0,0,0.15)); transform: rotate(-10deg) scale(1.1);">
+                    <div class="hero-visual-wrap" data-aos="zoom-in-up" data-aos-duration="1200">
+                        <div class="hero-main-img">
+                            <img src="{% static 'home/images/mens_shoe.png' %}" alt="Featured Shoe">
+                            <div class="floating-price-tag">$189</div>
+                        </div>
+                        <div class="hero-shape"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="section-padding">
+    <!-- Refined Categories -->
+    <section class="section-padding bg-white overflow-hidden">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Shop by Category</h2>
-            <div class="row">
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="cat-card">
+            <div class="row justify-content-between align-items-end mb-5">
+                <div class="col-lg-6">
+                    <h2 class="section-title-modern" data-aos="fade-up">Curated Collections</h2>
+                    <p class="section-desc-modern" data-aos="fade-up" data-aos-delay="100">Handpicked selections tailored for your unique lifestyle and taste.</p>
+                </div>
+                <div class="col-lg-auto mb-4">
+                    <a href="{% url 'shop' %}" class="btn-outline-modern" data-aos="fade-left">Browse All</a>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-7" data-aos="fade-up">
+                    <div class="cat-card-premium large">
                         <img src="{% static 'home/images/product-1.jpg' %}" class="cat-img" alt="Shoes">
-                        <div class="cat-overlay">
-                            <h3 class="cat-title">Shoes</h3>
+                        <div class="cat-content-premium">
+                            <span class="cat-count">01</span>
+                            <h3 class="cat-name">Premium Footwear</h3>
+                            <a href="#" class="cat-link">Shop Collection</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="cat-card">
+                <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cat-card-premium">
                         <img src="{% static 'home/images/product-2.jpg' %}" class="cat-img" alt="Clothing">
-                        <div class="cat-overlay">
-                            <h3 class="cat-title">Clothing</h3>
+                        <div class="cat-content-premium">
+                            <span class="cat-count">02</span>
+                            <h3 class="cat-name">Urban Apparel</h3>
+                            <a href="#" class="cat-link">Shop Collection</a>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="cat-card">
+                    <div class="cat-card-premium mt-4">
                         <img src="{% static 'home/images/product-3.jpg' %}" class="cat-img" alt="Accessories">
-                        <div class="cat-overlay">
-                            <h3 class="cat-title">Accessories</h3>
+                        <div class="cat-content-premium">
+                            <span class="cat-count">03</span>
+                            <h3 class="cat-name">Essential Accs</h3>
+                            <a href="#" class="cat-link">Shop Collection</a>
                         </div>
                     </div>
                 </div>
@@ -56,211 +77,114 @@
         </div>
     </section>
 
-    <!-- Featured Products -->
-    <section class="section-padding bg-light">
+    <!-- High-End Product Grid -->
+    <section id="featured" class="section-padding bg-light-soft">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Featured Products</h2>
-            <div class="row">
+            <div class="text-center mb-100">
+                <h2 class="section-title-modern" data-aos="fade-up">Latest Drops</h2>
+                <div class="section-divider" data-aos="zoom-in"></div>
+            </div>
+            
+            <div class="row gx-4 gy-5">
                 {% for product in products %}
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
-                    <div class="modern-product">
-                        <div class="product-img-wrap">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                    <div class="premium-product-card">
+                        <div class="pp-img-wrap">
+                            <span class="pp-badge">New</span>
                             <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                            <a href="{% url 'add_product_to_cart' product.id %}" class="quick-add">Add to Cart</a>
+                            <div class="pp-overlay">
+                                <a href="{% url 'add_product_to_cart' product.id %}" class="pp-btn-add">
+                                    <i class="ion-ios-cart"></i> Add to Cart
+                                </a>
+                                <a href="{% url 'product_detail' product.slug %}" class="pp-btn-view">
+                                    <i class="ion-ios-eye"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="product-info">
-                            <a href="{% url 'product_detail' product.slug %}" class="product-name">{{ product.name }}</a>
-                            <span class="product-price">${{ product.price }}</span>
+                        <div class="pp-details">
+                            <div class="pp-cat">Footwear</div>
+                            <h3 class="pp-title"><a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a></h3>
+                            <div class="pp-price">${{ product.price }}</div>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-            <div class="text-center mt-5">
-                <a href="{% url 'shop' %}" class="btn btn-outline-dark px-5 py-3">View All Products</a>
+        </div>
+    </section>
+
+    <!-- Services Section (Redesigned) -->
+    <section class="section-padding-sm bg-white border-bottom">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up">
+                    <div class="service-pill">
+                        <div class="service-icon"><i class="flaticon-bag"></i></div>
+                        <div class="service-text">
+                            <h4>Free Delivery</h4>
+                            <p>On all orders over $150</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-pill">
+                        <div class="service-icon"><i class="flaticon-heart-box"></i></div>
+                        <div class="service-text">
+                            <h4>Quality First</h4>
+                            <p>Hand-picked materials</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-pill">
+                        <div class="service-icon"><i class="flaticon-payment-security"></i></div>
+                        <div class="service-text">
+                            <h4>Secure Pay</h4>
+                            <p>100% protected payments</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-pill">
+                        <div class="service-icon"><i class="flaticon-customer-service"></i></div>
+                        <div class="service-text">
+                            <h4>24/7 Support</h4>
+                            <p>Always here for you</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-        </div>
-    </div>
-    </section>
 
-
-    <section class="ftco-section testimony-section">
-    <div class="container">
-        <div class="row">
-        <div class="col-lg-5">
-            <div class="services-flow">
-            <div class="services-2 p-4 d-flex ftco-animate">
-                <div class="icon">
-                <span class="flaticon-bag"></span>
-                </div>
-                <div class="text">
-                <h3>Free Shipping</h3>
-                <p class="mb-0">
-                    Separated they live in. A small river named Duden flows
-                </p>
+    <!-- Modern Testimony -->
+    <section class="section-padding bg-primary-dark text-white">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="section-title-modern text-white" data-aos="fade-up">Voices of Our Community</h2>
                 </div>
             </div>
-            <div class="services-2 p-4 d-flex ftco-animate">
-                <div class="icon">
-                <span class="flaticon-heart-box"></span>
-                </div>
-                <div class="text">
-                <h3>Valuable Gifts</h3>
-                <p class="mb-0">
-                    Separated they live in. A small river named Duden flows
-                </p>
-                </div>
-            </div>
-            <div class="services-2 p-4 d-flex ftco-animate">
-                <div class="icon">
-                <span class="flaticon-payment-security"></span>
-                </div>
-                <div class="text">
-                <h3>All Day Support</h3>
-                <p class="mb-0">
-                    Separated they live in. A small river named Duden flows
-                </p>
-                </div>
-            </div>
-            <div class="services-2 p-4 d-flex ftco-animate">
-                <div class="icon">
-                <span class="flaticon-customer-service"></span>
-                </div>
-                <div class="text">
-                <h3>All Day Support</h3>
-                <p class="mb-0">
-                    Separated they live in. A small river named Duden flows
-                </p>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="col-lg-7">
-            <div class="heading-section ftco-animate mb-5">
-            <h2 class="mb-4">Our satisfied customer says</h2>
-            <p>
-                Far far away, behind the word mountains, far from the countries
-                Vokalia and Consonantia, there live the blind texts. Separated they
-                live in
-            </p>
-            </div>
+            
             <div class="carousel-testimony owl-carousel">
-            <div class="item">
-                <div class="testimony-wrap">
-                <div
-                    class="user-img mb-4"
-                    style="background-image: url('{% static "home/images/person_1.jpg" %}')"
-                >
-                    <span
-                    class="quote d-flex align-items-center justify-content-center"
-                    >
-                    <i class="icon-quote-left"></i>
-                    </span>
+                {% for person in "123"|make_list %}
+                <div class="item">
+                    <div class="testimony-card-modern">
+                        <div class="testimony-text-box">
+                            <p>"The attention to detail in these products is incredible. I've never found shoes that balance style and comfort this perfectly."</p>
+                        </div>
+                        <div class="testimony-user">
+                            <div class="user-avatar" style="background-image: url('{% static "home/images/person_" %}{{ forloop.counter }}.jpg')"></div>
+                            <div class="user-info">
+                                <span class="u-name">Alex Johnson</span>
+                                <span class="u-rank">Elite Member</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="text">
-                    <p class="mb-4 pl-4 line">
-                    Far far away, behind the word mountains, far from the
-                    countries Vokalia and Consonantia, there live the blind texts.
-                    </p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Marketing Manager</span>
-                </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="testimony-wrap">
-                <div
-                    class="user-img mb-4"
-                    style="background-image: url('{% static "home/images/person_2.jpg" %}')"
-                >
-                    <span
-                    class="quote d-flex align-items-center justify-content-center"
-                    >
-                    <i class="icon-quote-left"></i>
-                    </span>
-                </div>
-                <div class="text">
-                    <p class="mb-4 pl-4 line">
-                    Far far away, behind the word mountains, far from the
-                    countries Vokalia and Consonantia, there live the blind texts.
-                    </p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Interface Designer</span>
-                </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="testimony-wrap">
-                <div
-                    class="user-img mb-4"
-                    style="background-image: url('{% static "home/images/person_3.jpg" %}')"
-                >
-                    <span
-                    class="quote d-flex align-items-center justify-content-center"
-                    >
-                    <i class="icon-quote-left"></i>
-                    </span>
-                </div>
-                <div class="text">
-                    <p class="mb-4 pl-4 line">
-                    Far far away, behind the word mountains, far from the
-                    countries Vokalia and Consonantia, there live the blind texts.
-                    </p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">UI Designer</span>
-                </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="testimony-wrap">
-                <div
-                    class="user-img mb-4"
-                    style="background-image: url('{% static "home/images/person_1.jpg" %}')"
-                >
-                    <span
-                    class="quote d-flex align-items-center justify-content-center"
-                    >
-                    <i class="icon-quote-left"></i>
-                    </span>
-                </div>
-                <div class="text">
-                    <p class="mb-4 pl-4 line">
-                    Far far away, behind the word mountains, far from the
-                    countries Vokalia and Consonantia, there live the blind texts.
-                    </p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Web Developer</span>
-                </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="testimony-wrap">
-                <div
-                    class="user-img mb-4"
-                    style="background-image: url('{% static "home/images/person_1.jpg" %}')"
-                >
-                    <span
-                    class="quote d-flex align-items-center justify-content-center"
-                    >
-                    <i class="icon-quote-left"></i>
-                    </span>
-                </div>
-                <div class="text">
-                    <p class="mb-4 pl-4 line">
-                    Far far away, behind the word mountains, far from the
-                    countries Vokalia and Consonantia, there live the blind texts.
-                    </p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">System Analyst</span>
-                </div>
-                </div>
-            </div>
+                {% endfor %}
             </div>
         </div>
-        </div>
-    </div>
     </section>
 
 {% endblock %}

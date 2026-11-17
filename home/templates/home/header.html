@@ -1,44 +1,24 @@
-<div class="py-1 bg-black">
+<div class="top-bar-premium">
   <div class="container">
-    <div
-      class="row no-gutters d-flex align-items-start align-items-center px-md-0"
-    >
-      <div class="col-lg-12 d-block">
-        <div class="row d-flex">
-          <div class="col-md pr-4 d-flex topper align-items-center">
-            <div
-              class="icon mr-2 d-flex justify-content-center align-items-center"
-            >
-              <span class="icon-phone2"></span>
-            </div>
-            <span class="text">+ 1235 2355 98</span>
-          </div>
-          <div class="col-md pr-4 d-flex topper align-items-center">
-            <div
-              class="icon mr-2 d-flex justify-content-center align-items-center"
-            >
-              <span class="icon-paper-plane"></span>
-            </div>
-            <span class="text">youremail@email.com</span>
-          </div>
-          <div
-            class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right"
-          >
-            <span class="text"
-              >3-5 Business days delivery &amp; Free Returns</span
-            >
-          </div>
+    <div class="row align-items-center">
+      <div class="col-md-6 d-none d-md-block">
+        <span class="top-text">Complimentary Shipping on Orders Above $150</span>
+      </div>
+      <div class="col-md-6 text-md-right text-center">
+        <div class="top-links">
+          <a href="#"><i class="ion-logo-instagram"></i></a>
+          <a href="#"><i class="ion-logo-twitter"></i></a>
+          <a href="{% url 'contact' %}">Support</a>
+          <a href="{% url 'about' %}">About Us</a>
         </div>
       </div>
     </div>
   </div>
 </div>
-<nav
-  class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-  id="ftco-navbar"
->
+
+<nav class="navbar navbar-expand-lg navbar-premium" id="ftco-navbar">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'home' %}">Shopora</a>
+    <a class="navbar-brand-premium" href="{% url 'home' %}">SHOPORA<span>.</span></a>
     <button
       class="navbar-toggler"
       type="button"
@@ -48,61 +28,41 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="oi oi-menu"></span> Menu
+      <span class="oi oi-menu"></span>
     </button>
+
     {% url "home" as home_url %}
-    {% url "about" as about_url %}
-    {% url "contact" as contact_url %}
+    {% url "shop" as shop_url %}
     {% url "blog" as blog_url %}
     {% url "login" as login_url %}
     {% url "register" as register_url %}
+
     <div class="collapse navbar-collapse" id="ftco-nav">
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav mx-auto">
         <li class="nav-item {% if request.path == home_url %}active{% endif %}">
           <a href="{% url 'home' %}" class="nav-link">Home</a>
         </li>
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="dropdown04"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-            >Catalog</a
-          >
-          <div class="dropdown-menu" aria-labelledby="dropdown04">
-            <a class="dropdown-item" href="{% url 'shop' %}">Shop</a>
-            <a class="dropdown-item" href="{% url 'cart' %}">Cart</a>
-            <a class="dropdown-item" href="{% url 'checkout' %}">Checkout</a>
-          </div>
+        <li class="nav-item {% if request.path == shop_url %}active{% endif %}">
+          <a href="{% url 'shop' %}" class="nav-link">Catalog</a>
         </li>
-        <li class="nav-item {% if request.path == about_url %}active{% endif %}">
-          <a href="{% url 'about' %}" class="nav-link">About</a>
+        <li class="nav-item {% if request.path == blog_url %}active{% endif %}">
+          <a href="{% url 'blog' %}" class="nav-link">Journal</a>
         </li>
-        <li class="nav-item {% if request.path == blog_url %}active{% endif %} "><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
-        <li class="nav-item {% if request.path == contact_url %}active{% endif %}">
-          <a href="{% url 'contact' %}" class="nav-link">Contact</a>
-        </li>
-        <li class="nav-item cta cta-colored">
-          <a href="{% url 'cart' %}" class="nav-link"
-            ><span class="icon-shopping_cart"></span>[{{ cart_count }}] </a
-          >
-        </li>
-        {% if user.is_authenticated %}
-          <li class="nav-item ">
-            <a href="{% url 'vendor_dashboard' %}" class="nav-link">Dashboard</a>
-          </li>
-          
-        {% else %}
-          <li class="nav-item {% if request.path == login_url %}active{% endif %}">
-            <a href="{% url 'login' %}" class="nav-link">login</a>
-          </li>
-          <li class="nav-item {% if request.path == register_url %}active{% endif %}">
-            <a href="{% url 'register' %}" class="nav-link">register</a>
-          </li>
-        {% endif %}
       </ul>
+      
+      <div class="navbar-actions ml-auto">
+        {% if user.is_authenticated %}
+          <a href="{% url 'vendor_dashboard' %}" class="nav-action-link">Dashboard</a>
+          <a href="{% url 'logout' %}" class="nav-action-link">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="nav-action-link">Login</a>
+        {% endif %}
+        
+        <a href="{% url 'cart' %}" class="cart-pill">
+          <i class="ion-ios-basket"></i>
+          <span class="cart-count-pill">{{ cart_count }}</span>
+        </a>
+      </div>
     </div>
   </div>
 </nav>

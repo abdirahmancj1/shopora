@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-szwf8(!71(+tejj7*_nevjuy=b5gb--vh%3d0@l!=oey@o!eh1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["shopora-p2ib.onrender.com"]
+ALLOWED_HOSTS = ["shopora-p2ib.onrender.com", "localhost", "127.0.0.1", "10.0.2.2"]
 
 
 # Application definition
@@ -47,11 +47,15 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'cloudinary_storage',
     'cloudinary',
+    'rest_framework',
+    'corsheaders',
+    'api',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -85,20 +89,31 @@ WSGI_APPLICATION = 'minishop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+# database of local development
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'minishop_db',
+#         'USER': 'postgres',
+#         'PASSWORD': '1234',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+# database of online deployment 
 DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'minishop_db_mf0v',
-        'USER': 'minishop_db_mf0v_user',
-        'PASSWORD': '2agpxKOCYwq45dEfjTRbLZNhMVvqlt3f',
-        'HOST': 'dpg-d7sqifugvqtc739v2a00-a',
+        'NAME': 'minishop_db_mf0v_12jz',
+        'USER': 'minishop_db_mf0v_12jz_user',
+        'PASSWORD': 'ec4FHmimOuZBwTdEfpTOF9goxS514KVM',
+        'HOST': 'dpg-dbu0h7bm8hqs73doo44g-a',
         'PORT': '5432',
     }
 }
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -165,3 +180,28 @@ LOGIN_URL = '/login/'
 
 # Prevent WhiteNoise from crashing on missing source maps
 WHITENOISE_MANIFEST_STRICT = False
+
+# REST Framework Configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+# Simple JWT Configuration
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+# CORS Configuration
+CORS_ALLOW_ALL_ORIGINS = True # For development, restricted in production
