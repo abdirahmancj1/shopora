@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-szwf8(!71(+tejj7*_nevjuy=b5gb--vh%3d0@l!=oey@o!eh1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["shopora-p2ib.onrender.com", "localhost", "127.0.0.1", "10.0.2.2"]
+ALLOWED_HOSTS = ["shopora-gg4s.onrender.com", "localhost", "127.0.0.1", "10.0.2.2"]
 
 
 # Application definition
